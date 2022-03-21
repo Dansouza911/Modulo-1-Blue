@@ -45,7 +45,7 @@ while (continuar.toLowerCase() == "sim") {
     console.log(` ${i}ª RODADA
     1-${joken[0]} 2-${joken[1]} 3-${joken[2]}`);
     // console.log(`${nome}, escolha sua opção.\n`);
-    console.log((jog = +prompt(`${nome}, escolha sua opção.`)));
+    jog = +prompt(`${nome}, escolha sua opção.`);
     jog--;
     console.log(`${com[adv]} escolheu ${joken[aleatorio]}
     ${nome} escolheu ${joken[jog]}`);
