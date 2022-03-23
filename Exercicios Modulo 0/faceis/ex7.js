@@ -1,14 +1,38 @@
-//Você está na flor da idade?
-//Defina uma variável para o valor do ano do nascimento;
-//Defina uma variável para o valor do ano atual;
-//Defina uma variável que calcula o valor final da idade da pessoa;
-//Exiba uma mensagem final dizendo a idade da pessoa e a mensagem "Você está na flor da idade".
-//const prompt = require('prompt-sync')();
-//const nome = prompt('Qual o seu nome? ');
+const prompt = require(`prompt-sync`)();
 
-const prompt = require('prompt-sync')();
-let ano = prompt('Qual o seu ano de nascimento?')
-let idade = (2022 - ano)
-console.log(`Você tem ${idade}`, 'anos, você esta na flor da idade')
+const months = [
+  //LISTA COM OS MESES EM EXTENSO
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
-
+function date() {
+  const date = prompt(`Type your bith date. Ex 13/07/1992:  `); //interagindo com o usuário pedindo a data
+  const split = date.split("/"); //Criando a lista da string através do split
+  const month = parseInt(split[1]); //Criando uma variável que transforma o valor(estava em string) da lista em number
+  const day = parseInt(split[0]);
+  if (day > 31) {
+    console.log(`null`);
+    return null;
+  }
+  if (month > 12) {
+    console.log(`null`);
+    return null;
+  }
+  if (date.length > 10) {
+    console.log(`null`);
+    return null;
+  }
+  console.log(`${split[0]} of ${months[month - 1]} of ${split[2]}`);
+}
+date();
