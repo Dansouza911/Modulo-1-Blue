@@ -45,6 +45,13 @@ let charEscolhido = {
     this.forca = this.forca + parametro;
   },
 };
+function pausecomp(millis) {
+  var date = new Date();
+  var curDate = null;
+  do {
+    curDate = new Date();
+  } while (curDate - date < millis);
+}
 
 let luta = 0;
 
@@ -89,13 +96,7 @@ for (let i = 0; i < 9; i++) {
     }
     console.log();
 
-    function pausecomp(millis) {
-      var date = new Date();
-      var curDate = null;
-      do {
-        curDate = new Date();
-      } while (curDate - date < millis);
-    }
+    
 
     console.log();
 
@@ -126,6 +127,7 @@ for (let i = 0; i < 9; i++) {
     };
 
     charEscolhido.nome = personagens[escolhaPersonagem - 1];
+
     adversario.nome = removido;
 
     function combate(
@@ -215,31 +217,8 @@ for (let i = 0; i < 9; i++) {
             "Ave Maria... que loucura foi essa? vocês empataram. Simbora pra próxima luta."
           );
           pausecomp(1500);
-        }
-      } else if (final == true) {
-        console.clear();
-        if (vidaAdv < 0) {
-          console.clear();
-          console.log(`
-                    ...
-              É CAMPEÃOOOOO!!!
-        PARABÉNS VOCÊ GANHOU O CHAPÉU DE COURO
-                    ...
-         `);
-          pausecomp(5000);
-        } else if (vidaChar < 0) {
-          console.log(
-            `Você foi Obliterado pelo Lampião!
-                  GAME OVER
-            `
-          );
-          pausecomp(5000);
-        } else {
-          console.log(`
-            O empate é uma derrota... Você continua sem o Chápeu.
-                   GAME OVER`);
-          pausecomp(5000);
-        }
+        
+      } 
       }
     }
     if ((luta == 1)) {
@@ -469,9 +448,103 @@ let lampiao = {
   esquiva: charEscolhido.esquiva,
 };
 // Batalha Final
+
+function combateFinal(
+  vidaChar,
+  forcaChar,
+  esquivaChar,
+  vidaAdv,
+  forcaAdv,
+  esquivaAdv,
+  nome
+) {
+  console.clear();
+        console.log(`
+  
+          ...
+
+  Tá na hora da TRETA!!!
+
+          ...`);
+
+  pausecomp(1500);
+  
+  while (vidaChar > 0 && vidaAdv > 0) {
+    console.clear();
+
+    console.log(`***********
+    ${charEscolhido.nome} - Vida: ${vidaChar}/${charEscolhido.vida} 
+    Força ${forcaChar}
+    Esquiva ${esquivaChar}
+    ------
+    ${nome} - Vida ${vidaAdv}/100
+    Força ${forcaAdv}
+    Esquiva ${esquivaAdv}
+    ***********
+    `);
+    let dado1 = Math.floor(Math.random() * 5 + 1);
+    let dado2 = Math.floor(Math.random() * 5 + 1);
+    let danochar = forcaChar + dado1 + dado2 - esquivaAdv;
+    if (danochar < 0) {
+      danochar = 0;
+    }
+    vidaAdv = vidaAdv - danochar;
+
+    console.log(`Você tirou ${dado1 + dado2} nos dados e somou ao seu ataque
+    
+    ${nome} sofreu ${danochar} de dano.
+    `);
+    pausecomp(1000);
+    console.log("**************************");
+    dado1 = Math.floor(Math.random() * 5 + 1);
+    dado2 = Math.floor(Math.random() * 5 + 1);
+    let danoadv = forcaAdv + dado1 + dado2 - esquivaChar;
+    if (danoadv < 0) {
+      danoadv = 0;
+    }
+    vidaChar = vidaChar - danoadv;
+    console.log(`${nome} tirou ${
+      dado1 + dado2
+    } nos dados e somou ao seu ataque.
+    
+   Você sofreu ${danoadv} de dano.
+   
+  `);
+    pausecomp(1000);
+    prox = prompt(`\n Enter para próxima rodada`);
+  }
+   
+    console.clear();
+    if (vidaAdv < 0) {
+      console.clear();
+      console.log(`
+                ...
+          É CAMPEÃOOOOO!!!
+    PARABÉNS VOCÊ GANHOU O CHAPÉU DE COURO
+                ...
+     `);
+      pausecomp(5000);
+    } else if (vidaChar < 0) {
+      console.log(
+        `Você foi Obliterado pelo Lampião!
+              GAME OVER
+        `
+      );
+      pausecomp(5000);
+    } else {
+      console.log(`
+        O empate é uma derrota... Você continua sem o Chápeu.
+               GAME OVER`);
+      pausecomp(5000);
+    
+  }
+}
+
+
+
+
 if (vitorias == 3) {
   charEscolhido.final = true;
-  adversario.nome = lampiao.nome;
   console.log(`Chegou a hora de enfrentar Lampião "O rei do cangaço"!
 
 Simbora!!!
@@ -480,13 +553,13 @@ Simbora!!!
 `);
 
   pausecomp(5000);
-  combate(
+  combateFinal(
     charEscolhido.vida,
     charEscolhido.forca,
     charEscolhido.esquiva,
     lampiao.vida,
     lampiao.forca,
     lampiao.esquiva,
-    charEscolhido.final
+    'Lampião "O Rei do Canguaço"'
   );
 }
