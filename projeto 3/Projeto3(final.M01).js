@@ -334,9 +334,6 @@ Vamos para a ${luta}ª luta
               console.log(`
               
               
-              
-              
-              
               `);
               charEscolhido.alteraesquiva();
               console.log(`Você recebeu + 5 pts de esquiva`);

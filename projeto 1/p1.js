@@ -1,5 +1,5 @@
 const prompt = require("prompt-sync")();
-let nome = prompt("Digite o nome do Personagem: ");
+let nome = prompt("Digite o nome do Personagem: 😄");
 console.log();
 console.log("Regra do jogo: Só responda com Sim ou Não");
 console.log();
